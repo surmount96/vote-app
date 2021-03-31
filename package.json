@@ -5,13 +5,31 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "unit": "jest"
   },
   "dependencies": {
+    "@chakra-ui/vue": "^0.6.6",
+    "axios": "^0.19.2",
     "core-js": "^3.6.5",
+    "emotion": "^10.0.27",
+    "filepond": "^4.14.0",
+    "filepond-plugin-file-validate-type": "^1.2.5",
+    "filepond-plugin-image-preview": "^4.6.4",
+    "k-progress": "^1.5.0",
+    "luxon": "^1.24.1",
+    "remixicon": "^2.5.0",
+    "tailwindcss-transforms": "^2.2.0",
+    "tailwindcss-transitions": "^2.2.0",
     "vue": "^2.6.11",
+    "vue-datetime": "^1.0.0-beta.13",
+    "vue-filepond": "^6.0.2",
+    "vue-multiselect": "^2.1.6",
+    "vue-progressbar": "^0.7.5",
     "vue-router": "^3.2.0",
-    "vuex": "^3.4.0"
+    "vue-toastification": "^1.7.6",
+    "vuex": "^3.4.0",
+    "weekstart": "^1.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.4.0",
@@ -20,13 +38,17 @@
     "@vue/cli-plugin-vuex": "^4.4.0",
     "@vue/cli-service": "^4.4.0",
     "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-vue": "^6.2.2",
+    "jest": "^26.0.1",
     "node-sass": "^4.12.0",
     "prettier": "^1.19.1",
     "sass-loader": "^8.0.2",
+    "tailwindcss": "^1.4.6",
+    "vue-jest": "^3.0.5",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
@@ -48,5 +70,11 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "jest": {
+    "transform": {
+      "^.+\\.vue$": "vue-jest",
+      "^.+\\.js$": "babel-jest"
+    }
+  }
 }
