@@ -103,7 +103,7 @@ export default {
                 const res = await this.submitVote({contestant: this.contestants});
                 if(res.status === 201) {
                     this.$toast.success('Voting process has been completed');
-                    this.getContestants()
+                    this.getContestants();
                 }
             }catch (err) {
                 this.$toast.error(err.response.data.message);
