@@ -1,7 +1,7 @@
 <template>
   <div class="">
-    <div class="flex flex-wrap" style="height:100vh;">
-      <div class="lg:w-1/3 md:w-1/3 mx-auto w-full bg-white " >
+    <div class="flex flex-wrap items-center" style="height:100vh;">
+      <div class="lg:w-1/3 md:w-1/2 lg:mx-auto md:mx-auto mx-5 w-full bg-white " style="height:70vh" >
         <div
               class=" px-10 lg:pt-16 pb-16 text-medium"
             >
@@ -10,37 +10,48 @@
               </div>
               <h2 class="text-h4 font-semibold text-center">Welcome Back,</h2>
               <form action="">
-                <div class="mt-4">
-                  <label for=""></label>
-                  <input
-                    type="text"
-                    class="w-full login-place focus:outline-none border border-gray bg-gray  px-5 py-3"
-                    placeholder="Phone/Email"
-                  />
+                <div v-show="loginStart">
+                  <div class="my-5">
+                    <label for=""></label>
+                    <input
+                      type="text"
+                      v-model="form.email"
+                      class="w-full login-place focus:outline-none border border-gray bg-gray px-5 py-4 rounded-sm"
+                      placeholder="Email"
+                    />
+                  </div>
+                  <div class="">
+                    <button
+                      class="bg-blue w-full shadow px-10 py-4 text-white rounded-sm"
+                      @click.prevent="confirmEmail"
+                    >
+                      {{ message }}
+                    </button>
+                  </div>
+                
                 </div>
-                <div class="my-5">
-                  <label for=""></label>
-                  <input
-                    type="password"
-                    class="w-full login-place focus:outline-none border border-gray px-5 py-3"
-                    placeholder="password"
-                  />
+
+                <div v-show="!loginStart">
+                  <div class="my-5">
+                    <label for=""></label>
+                    <input
+                      type="password"
+                      v-model="form.password"
+                      class="w-full login-place focus:outline-none border border-gray bg-gray px-5 py-4 rounded-sm"
+                      placeholder="passcode"
+                    />
+                  </div>
+                  <div class="">
+                    <button
+                      class="bg-blue w-full shadow px-10 py-4 text-white rounded-sm"
+                      @click.prevent="signIn"
+                    >
+                      Login
+                    </button>
+                  </div>
+                
                 </div>
-                <div class="">
-                  <router-link
-                    to="/wizard-guide"
-                    tag="button"
-                    class="bg-blue-100 w-full shadow px-10 py-5 text-white"
-                  >
-                    sign in
-                  </router-link>
-                </div>
-                <div class="flex justify-between">
-                  <router-link to="/forgot-password" class="reg-link">{{
-                    "Forgot password?"
-                  }}</router-link>
-                  <router-link to="/signup" class="reg-link">sign up</router-link>
-                </div>
+                
               </form>
             </div>
       </div>
@@ -54,14 +65,49 @@
 </template>
 
 <script>
+/* eslint-disable */
+import { createNamespacedHelpers } from 'vuex';
+
+const { mapActions } = createNamespacedHelpers('auth');
+
+
 export default {
   name: "Login",
   data() {
     return {
-      dropdown: false
+      dropdown: false,
+      loginStart:true,
+      form:{
+        email:'',
+        password:''
+      },
+      message: 'Proceed'
     };
   },
-  methods: {}
+  methods: {
+    ...mapActions(["login","verifyMail"]),
+    async confirmEmail(){
+      this.message = 'Verifying email.....';
+      try{
+        const res = await this.verifyMail(this.form);
+        this.message = 'Email verified!';
+        this.loginStart = false;
+        this.$toast.success(res.data.message);
+      } catch(err){
+        this.$toast.error(err.response.data.message);
+        this.message = 'Retry';
+      }
+    },
+    async signIn(){
+      try{
+        const res = await this.login(this.form);
+        this.$router.push({path: '/dashboard'});
+      } catch(err){
+        this.$toast.error(err.response.data.message);
+        console.log(err.response)
+      }
+    }
+  }
 };
 </script>
 

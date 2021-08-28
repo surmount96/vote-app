@@ -1,7 +1,7 @@
 module.exports = {
   theme: {
 colors: {
-      success: '#00D67D',
+      success: '#06C688',
       negative: '#CC2E2E',
       pending: '#FFC82C',
       black: '#000000',
@@ -128,8 +128,10 @@ colors: {
           default: '#49CBFB',
           100:'#222D90',
       },
+      warning: '#EBA350',
       lightGrey: '#A6AAB4',
       orange: '#FF7310',
+      success: '#06C688',
       green: {
         default: '#00D67D',
         dark: '#188F32',
